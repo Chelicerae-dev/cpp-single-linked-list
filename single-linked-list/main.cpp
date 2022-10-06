@@ -143,6 +143,8 @@ void Test() {
             assert(deletion_counter == 1u);
         }
     }
+    using namespace std::literals;
+    std::cerr << "Tests passed"s << std::endl;
 }
 
 int main() {
