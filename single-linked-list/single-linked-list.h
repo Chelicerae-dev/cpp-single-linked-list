@@ -231,9 +231,7 @@ public:
 
     // Обменивает содержимое списков за время O(1)
     void swap(SingleLinkedList& other) noexcept {
-        Node* temp_node = other.head_.next_node;
-        other.head_.next_node = head_.next_node;
-        head_.next_node = temp_node;
+        std::swap(head_.next_node, other.head_.next_node);
         std::swap(this->size_, other.size_);
     }
 
@@ -261,7 +259,7 @@ public:
      * Если при создании элемента будет выброшено исключение, список останется в прежнем состоянии
      */
     Iterator InsertAfter(ConstIterator pos, const Type& value) {
-        assert(&pos != nullptr);
+        assert(&pos.node_ != nullptr);
         Node* new_node =  new Node(value, pos.node_->next_node);
         pos.node_->next_node = new_node;
         ++size_;
@@ -283,7 +281,7 @@ public:
      */
     Iterator EraseAfter(ConstIterator pos) noexcept {
         //Проверяем итератор
-        assert(&pos != nullptr);
+        assert(&pos.node_ != nullptr);
         //Проверяем удаляемый элемент
         assert(pos.node_->next_node != nullptr);
         Node* new_next_node = pos.node_->next_node->next_node;
